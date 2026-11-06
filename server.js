@@ -9,7 +9,7 @@ const { server: wisp, logging } = require("@mercuryworkshop/wisp-js/server");
 logging.set_level(logging.INFO);
 Object.assign(wisp.options, { allow_udp_streams: false, dns_servers: ["1.1.1.3", "1.0.0.3"] });
 
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || (process.env.RAILWAY_ENVIRONMENT ? "0.0.0.0" : "127.0.0.1");
 const PORT = Number(process.env.PORT || 8787);
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, "data");
@@ -440,7 +440,6 @@ function listen(port, fallbackCount = 0) {
   server.listen(port, HOST, () => console.log(`zoruneos server is running at http://localhost:${port}`));
 }
 listen(PORT);
-
 
 
 

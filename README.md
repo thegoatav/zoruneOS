@@ -17,7 +17,7 @@ zoruneOS is a dark, browser-based desktop prototype with draggable app windows, 
 4. Run `node server.js` (or `npm.cmd start`).
 5. Open the exact `http://localhost:...` address printed in the terminal. Keep the terminal open while using zoruneOS; press **Ctrl+C** there to stop the server.
 
-Use the Node server address, not VS Code Live Server. The Browser, Global Chat, and Movies catalog need the Node server. By default, it listens on this computer only (`127.0.0.1`).
+Use the Node server address, not VS Code Live Server. The Browser, Global Chat, and Movies catalog need the Node server. Locally, it listens only on this computer (`127.0.0.1`). On Railway, it uses Railway's `PORT` and binds to `0.0.0.0` so the deployment can receive traffic. For other container hosts, set `HOST=0.0.0.0`.
 
 ## Account setup
 
