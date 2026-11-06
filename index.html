@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <title>zoruneos</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="account.css">
+</head>
+<body>
+  <main class="desktop" aria-label="zoruneos desktop">
+    <section class="boot-screen" id="bootScreen" aria-label="Starting zoruneos"><img src="logo.png" alt=""><div class="boot-name">zoruneos</div><div class="boot-progress"><span></span></div><button id="skipBoot">skip</button></section>
+    <section class="account-gate" id="accountGate" hidden aria-live="polite"><div class="account-gate-card" id="accountGateContent"></div></section>
+    <header class="topbar">
+      <button class="brand" id="brandButton" aria-label="Open launcher"><img class="brand-logo" src="logo.png" alt=""><span>zoruneos</span></button>
+      <div class="top-center" id="activeApp">desktop</div>
+      <div class="top-right"><span class="system-icon" aria-label="Network">⌁</span><span class="system-icon" aria-label="Volume">◖</span><span id="topClock">--:--</span></div>
+    </header>
+
+    <section class="desktop-content">
+      <div class="desktop-date"><span id="dayLabel">TUESDAY</span><span id="dateLabel">NOVEMBER 3</span></div>
+      <section class="app-area" aria-label="Apps">
+        <div class="section-heading"><span>apps</span><span class="app-count" id="appCount">15</span></div>
+        <div class="app-grid">
+          <button class="app" data-app="files"><span class="app-icon"><svg><use href="#i-files"/></svg></span><span>files</span></button>
+          <button class="app" data-app="browser"><span class="app-icon"><svg><use href="#i-browser"/></svg></span><span>browser</span></button>
+          <button class="app" data-app="messages"><span class="app-icon"><svg><use href="#i-messages"/></svg></span><span>global chat</span></button>
+          <button class="app" data-app="paint"><span class="app-icon"><svg><use href="#i-paint"/></svg></span><span>paint</span></button>
+          <button class="app" data-app="terminal"><span class="app-icon"><svg><use href="#i-terminal"/></svg></span><span>terminal</span></button>
+          <button class="app" data-app="music"><span class="app-icon"><svg><use href="#i-music"/></svg></span><span>music</span></button>
+          <button class="app" data-app="movies"><span class="app-icon"><svg><use href="#i-movies"/></svg></span><span>movies</span></button>
+          <button class="app" data-app="appCreator"><span class="app-icon"><svg><use href="#i-code"/></svg></span><span>app creator</span></button>
+          <button class="app" data-app="camera"><span class="app-icon"><svg><use href="#i-camera"/></svg></span><span>camera</span></button>
+          <button class="app" data-app="calculator"><span class="app-icon"><svg><use href="#i-calculator"/></svg></span><span>calculator</span></button>
+          <button class="app" data-app="games"><span class="app-icon"><svg><use href="#i-games"/></svg></span><span>games</span></button>
+          <button class="app" data-app="settings"><span class="app-icon"><svg><use href="#i-settings"/></svg></span><span>settings</span></button>
+          <button class="app" data-app="profile"><span class="app-icon"><svg><use href="#i-profile"/></svg></span><span>profile</span></button>
+          <button class="app" data-app="shop"><span class="app-icon"><svg><use href="#i-shop"/></svg></span><span>shop</span></button>
+          <button class="app" data-app="clock"><span class="app-icon"><svg><use href="#i-clock"/></svg></span><span>clock</span></button>
+        </div>
+      </section>
+    </section>
+
+    <section class="window" id="appWindow" aria-label="App window" hidden>
+      <header class="window-bar"><div class="window-title"><span class="window-symbol" id="windowSymbol"></span><span id="windowTitle">files</span></div><div class="window-controls"><button id="minimizeWindow" aria-label="Minimize">−</button><button id="maximizeWindow" aria-label="Maximize" title="Maximize or restore">□</button><button id="closeWindow" aria-label="Close">×</button></div></header>
+      <div class="window-content" id="windowContent"></div><div class="window-resize" id="windowResize" role="button" aria-label="Resize app window" tabindex="0"></div>
+    </section>
+
+    <nav class="dock" aria-label="Pinned apps">
+      <button class="dock-mark" id="startButton" aria-label="Open launcher"><img src="logo.png" alt=""></button>
+      <span class="dock-divider"></span>
+      <button class="dock-app" data-app="browser" aria-label="Browser"><svg><use href="#i-browser"/></svg></button>
+      <button class="dock-app" data-app="files" aria-label="Files"><svg><use href="#i-files"/></svg></button>
+      <button class="dock-app" data-app="settings" aria-label="Settings"><svg><use href="#i-settings"/></svg></button>
+    </nav>
+    <section class="launcher" id="launcher" hidden>
+      <div class="launcher-head"><span>zoruneos</span><button id="closeLauncher" aria-label="Close">×</button></div>
+      <label class="launcher-search"><span>⌕</span><input id="searchLauncher" type="search" placeholder="Search apps and settings" aria-label="Search apps and settings"><kbd>esc</kbd></label>
+      <div class="launcher-label">pinned</div>
+      <div class="launcher-pins"><button data-app="files"><svg><use href="#i-files"/></svg>files</button><button data-app="browser"><svg><use href="#i-browser"/></svg>browser</button><button data-app="messages"><svg><use href="#i-messages"/></svg>global chat</button><button data-app="settings"><svg><use href="#i-settings"/></svg>settings</button></div>
+      <div class="launcher-label">all apps</div><div class="launcher-apps" id="launcherApps"></div><div id="launcherSettingsResults" class="launcher-settings-results" hidden></div>
+      <div class="launcher-foot"><button class="launcher-profile" id="launcherProfile" aria-label="Open profile"><span class="user-dot" id="launcherAvatar">z</span><span id="launcherDisplayName">guest</span></button><button id="launcherRestart" aria-label="Restart zoruneOS" title="Restart zoruneOS">⏻</button></div>
+    </section>
+
+    <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <symbol id="i-files" viewBox="0 0 24 24"><path d="M3.5 7.5h6l2 2h9v9a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1z"/><path d="M3.5 7.5v-2a1 1 0 0 1 1-1h4l2 2"/></symbol>
+      <symbol id="i-browser" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.8 9h16.4M8 4.5c2.3 2.2 3.2 4.7 3.2 7.5s-.9 5.3-3.2 7.5M16 4.5c-2.3 2.2-3.2 4.7-3.2 7.5s.9 5.3 3.2 7.5"/></symbol>
+      <symbol id="i-messages" viewBox="0 0 24 24"><path d="M4 5.5h16v11H9l-5 3z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></symbol>
+      <symbol id="i-paint" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 1 0 0 17h1.2a2 2 0 0 0 1.4-3.4l-.3-.3a1.7 1.7 0 0 1 1.2-2.9h1a4 4 0 0 0 4-4c0-3.5-3.8-6.4-8.5-6.4z"/><path d="M7.5 11h.01M10 7.5h.01M15 7.5h.01"/></symbol>
+      <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></symbol>
+      <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+      <symbol id="i-movies" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="m10 9 5 3-5 3zM4 9h2m-2 6h2m12-6h2m-2 6h2"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="m8.5 7-5 5 5 5M15.5 7l5 5-5 5M14 4l-4 16"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7.5h4l1.5-2h5l1.5 2h4v12H4z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+      <symbol id="i-calculator" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8v3H8zM8.5 14h.01M12 14h.01M15.5 14h.01M8.5 17.5h.01M12 17.5h.01M15.5 17.5h.01"/></symbol>
+      <symbol id="i-games" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 3.8 5.2l-1.1 3.5a2 2 0 0 1-3.2.9L14 15H10l-2.5 2.6a2 2 0 0 1-3.2-.9l-1.1-3.5A4 4 0 0 1 7 8z"/><path d="M8 10.5v4M6 12.5h4M16 11h.01M18 13h.01"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.1 1.9-1.8 1.8-1.9-1.1-.1.1-2.1.9-.5 2.2h-2.5l-.5-2.2-2.1-.9-.1-.1-1.9 1.1-1.8-1.8 1.1-1.9-.1-.1-.9-2.1L3 12.4V10l2.2-.5.9-2.1.1-.1-1.1-1.9L6.9 3.6l1.9 1.1.1-.1 2.1-.9.5-2.2H14l.5 2.2 2.1.9.1.1 1.9-1.1 1.8 1.8-1.1 1.9.1.1.9 2.1 2.2.5v2.4l-2.2.5z" transform="translate(0 1) scale(.92)"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-profile" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0M4 4v16h16V4z"/></symbol>
+      <symbol id="i-shop" viewBox="0 0 24 24"><path d="M4 9h16l-1.3 11H5.3L4 9zM3 9l2-5h14l2 5M9 9a3 3 0 0 0 6 0"/></symbol>
+    </svg>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
