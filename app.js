@@ -571,7 +571,6 @@ function toggleMaximize(){
     appWindow.classList.remove("maximized");
     if(restoreWindowStyles){for(const [key,value] of Object.entries(restoreWindowStyles))appWindow.style[key]=value;restoreWindowStyles=null}
   }else{
-    const rect=appWindow.getBoundingClientRect();
     restoreWindowStyles={left:appWindow.style.left,top:appWindow.style.top,right:appWindow.style.right,bottom:appWindow.style.bottom,width:appWindow.style.width,height:appWindow.style.height,transform:appWindow.style.transform};
     appWindow.classList.add("maximized");
   }
@@ -584,7 +583,7 @@ titleBar.addEventListener("pointerdown",event=>{
   const rect=appWindow.getBoundingClientRect(),offsetX=event.clientX-rect.left,offsetY=event.clientY-rect.top;
   titleBar.setPointerCapture(event.pointerId);
   appWindow.style.left=`${rect.left}px`;appWindow.style.top=`${rect.top}px`;appWindow.style.width=`${rect.width}px`;appWindow.style.height=`${rect.height}px`;appWindow.style.right="auto";appWindow.style.bottom="auto";appWindow.style.transform="none";
-  titleBar.onpointermove=move=>{if(!titleBar.hasPointerCapture(move.pointerId))return;appWindow.style.left=`${Math.max(0,Math.min(innerWidth-appWindow.offsetWidth,move.clientX-offsetX))}px`;appWindow.style.top=`${Math.max(43,Math.min(innerHeight-80,move.clientY-offsetY))}px`};
+  titleBar.onpointermove=move=>{if(!titleBar.hasPointerCapture(move.pointerId))return;appWindow.style.left=`${Math.max(0,Math.min(Math.max(0,innerWidth-appWindow.offsetWidth),move.clientX-offsetX))}px`;appWindow.style.top=`${Math.max(43,Math.min(Math.max(43,innerHeight-appWindow.offsetHeight),move.clientY-offsetY))}px`};
   titleBar.onpointerup=up=>{if(titleBar.hasPointerCapture(up.pointerId))titleBar.releasePointerCapture(up.pointerId);titleBar.onpointermove=null;titleBar.onpointerup=null};
 });
 const resizeHandle=document.querySelector("#windowResize");
@@ -592,7 +591,7 @@ resizeHandle.addEventListener("pointerdown",event=>{
   if(appWindow.classList.contains("maximized"))return;
   event.preventDefault();const rect=appWindow.getBoundingClientRect(),startX=event.clientX,startY=event.clientY;
   resizeHandle.setPointerCapture(event.pointerId);appWindow.style.left=`${rect.left}px`;appWindow.style.top=`${rect.top}px`;appWindow.style.right="auto";appWindow.style.bottom="auto";appWindow.style.transform="none";
-  resizeHandle.onpointermove=move=>{if(!resizeHandle.hasPointerCapture(move.pointerId))return;const minWidth=appWindow.classList.contains("browser-window")?320:300;appWindow.style.width=`${Math.max(minWidth,Math.min(innerWidth-rect.left,rect.width+move.clientX-startX))}px`;appWindow.style.height=`${Math.max(250,Math.min(innerHeight-rect.top-70,rect.height+move.clientY-startY))}px`};
+  resizeHandle.onpointermove=move=>{if(!resizeHandle.hasPointerCapture(move.pointerId))return;const availableWidth=Math.max(1,innerWidth-rect.left),availableHeight=Math.max(1,innerHeight-rect.top),minWidth=Math.min(appWindow.classList.contains("browser-window")?320:300,availableWidth),minHeight=Math.min(250,availableHeight);appWindow.style.width=`${Math.max(minWidth,Math.min(availableWidth,rect.width+move.clientX-startX))}px`;appWindow.style.height=`${Math.max(minHeight,Math.min(availableHeight,rect.height+move.clientY-startY))}px`};
   resizeHandle.onpointerup=up=>{if(resizeHandle.hasPointerCapture(up.pointerId))resizeHandle.releasePointerCapture(up.pointerId);resizeHandle.onpointermove=null;resizeHandle.onpointerup=null};
 });
 document.addEventListener("click",event=>{if(!event.target.closest(".launcher,.dock-mark,.brand"))toggleLauncher(false)});
